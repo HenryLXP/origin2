@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 300px;
+				top:50px;
+				background: red;
+
+			}
+
+		</style>
+		
+		<script>
+ 
+			onload = function(){
+				var aInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+			
+				aInput.onclick = function(){
+					//开始缓冲运动					
+					startMove(oBox,"left",20);	
+				}
+  
+
+			}
+			
+			//缓冲运动函数
+			function startMove(obj,attr,iTarget){
+				//先清除之前的定时器
+				clearInterval(obj.timer);
+				
+				//设置定时器，开始运动
+				obj.timer = setInterval(function(){
+					//获取初始位置值
+					var current = parseInt(getStyleAttr(obj,attr));
+					
+					//给定一个速度
+					//缓冲运动：速度越来越小
+					//速度越来越小       （iTarget - current）/8 
+					var iSpeed = (iTarget-current) / 8;
+					iSpeed = Math.floor(iSpeed); //向下取整
+ 
+					
+					//20-300  = 7 /8 = 0.875555  1
+					//-7/8 = --0.87555   -1
+					
+					//判断是否到达目标位置
+					if(iTarget == current){
+						clearInterval(timer);  //关闭定时器
+						return;					//跳出函数
+					}
+					
+					//运动
+					obj.style[attr] = current + iSpeed + "px";
+					
+					
+				},30);
+ 
+			}
+			
+			
+			
+			
+				//获取元素的属性值
+				//obj  元素对象
+				//attr 要获取的元素属性			
+			function getStyleAttr(obj,attr){
+				if(window.getComputedStyle){  //ie9+  ff 谷歌
+					return getComputedStyle(obj,null)[attr];			
+				}
+				//ie8及以下
+				return obj.currentStyle[attr];
+
+			}
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<input type="button" value="缓冲运动向左" />
+		<div id="box"></div>
+		<div style="width: 1px;height: 200px;background: black;position:absolute;left:20px;"
+	</body>
+</html>

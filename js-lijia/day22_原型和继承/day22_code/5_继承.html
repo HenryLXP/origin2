@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//继承
+			//继承的作用：
+			//1.子类可以拥有父类的所有属性和方法
+			//2.子类可以创建自己的方法和属性
+			//3.子类可以重写父类的方法：
+			
+			//通过继承创建的新类，叫做“子类”或者"派生类"，被继承的类叫做“基类”，“父类""或者”超类“
+			
+			//在js中是通过原型链来完成继承
+			
+			//继承的过程就是从一般到特殊的过程
+			
+			//Person  人的类
+			//Employee 员工类
+			//Manager  管理人员类
+			
+//			function Person(){  //Person构造函数Person类
+//				this.name = "张三";
+//			}
+//			
+//			function Employee(){ //Employee构造函数Employee类
+//				this.age = 22;
+//			}
+//			
+//			var person = new Person();
+//			
+//			Employee.prototype = person;  // Employee继承了person，通过原型的方式，形成链条
+//			
+//			var employee = new Employee();  //实例化
+//			console.log(employee.age);
+//			console.log(employee.name);
+//			
+//			function Manager(){//Manager构造函数Manager类
+//				this.sex = "男";
+//			}
+//			
+//			Manager.prototype = employee; // Manager继承了Employee，通过原型的方式，形成链条
+//			
+//			var manager = new Manager();
+//			console.log(manager.sex);
+//			console.log(manager.age);
+//			console.log(manager.name);
+//			
+//			console.log(manager instanceof Manager);
+//			console.log(manager instanceof Person);
+//			console.log(manager instanceof Employee);
+//			console.log(manager instanceof Object);
+//			
+			
+			/*
+			 父类：Cat
+			方法：eat; miaow
+			属性：fur
+			说明： eat吃各种东西
+			
+			子类1： GarfieldCat
+			方法：eat; miaow; talk
+			属性：fur; glasses
+			说明：eat只吃肉
+			
+			子类2： TomCat
+			方法：eat; miaow; catchMouse
+			属性：fur; friend
+			说明：eat只吃面包
+
+			 * */
+	 
+			
+			//Cat类(构造函数), 父类
+			function Cat(){
+				this.fur = "有皮毛";
+				this.eat = function(){
+					console.log("吃各种东西");
+				}
+				this.miaow = function(){
+					console.log("喵 喵");
+				}
+			}
+			
+ 
+			
+			//加菲猫类, 子类1
+			function GarfieldCat(){
+				this.glasses = "戴了眼镜";
+				this.talk = function(){
+					console.log("会说话");
+				}
+				this.eat = function(){ //重写父类的eat方法
+					console.log("只吃肉");
+				}
+			}
+			//var cat = new Cat();
+			GarfieldCat.prototype = new Cat(); //使用原型链继承Cat类
+			
+			//汤姆猫类, 子类2
+			function TomCat(){
+				this.friend = "有朋友";
+				this.catchMouse = function(){
+					console.log("会抓老鼠");
+				}
+				this.eat = function(){ //重写父类的eat
+					console.log("只吃面包");
+				}
+			}
+			TomCat.prototype = new Cat(); //继承Cat类
+			
+			
+			//创建一只加菲猫
+			var garfieldCat = new GarfieldCat();
+			console.log(garfieldCat.glasses);
+			console.log(garfieldCat.fur);
+			garfieldCat.eat(); //只吃肉
+			garfieldCat.talk(); //会说话
+			garfieldCat.miaow(); //喵 喵
+			
+			//创建一只汤姆猫
+			var tomCat = new TomCat();
+			console.log(tomCat.friend); //有朋友
+			console.log(tomCat.fur);
+			tomCat.eat(); //只吃面包
+			tomCat.catchMouse(); //会抓老鼠
+			tomCat.miaow(); //喵 喵			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

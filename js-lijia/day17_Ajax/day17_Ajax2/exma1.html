@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#list {
+				width: 400px;
+				margin: 10px auto;
+			}
+			
+			li {
+				border: 1px solid red;
+				margin-bottom: 10px;
+			}
+			#name {
+				color: red;
+			}
+			
+			#next {
+				width: 150px;
+				background: orange;
+				height: 25px;
+				line-height: 25px;
+				text-align: center;
+				border-radius: 5px;
+				margin: 0 auto;
+				cursor: pointer;
+			}
+			
+		</style>
+		
+		<script src="AjaxBase.js"></script>
+		<script>
+ 			onload = function(){
+ 				var oList = document.getElementById("list");
+ 				var oNext = document.getElementById("next");
+ 				
+ 				var i = 0; //数组下标
+ 				//按钮点击事件
+ 				oNext.onclick = function(){
+ 					
+ 					var xhr = createXHR();
+ 					xhr.open("GET","http://localhost:8080/json/football.json",true);
+ 					xhr.send(null);
+ 					
+ 					xhr.onreadystatechange = function(){
+ 						if(xhr.readyState == 4){
+ 							
+ 							if(xhr.status == 200){
+ 								
+ 								var dataList = JSON.parse(xhr.responseText);
+ 								
+ 								var obj = dataList[i++];
+ 								if(i >= dataList.length){
+ 									alert("数据已加载完毕");
+ 									return;
+ 								}
+ 								
+ 								//创建li
+ 								var liNode = document.createElement("li");
+ 								
+ 								//创建div
+ 								var divNode1 = document.createElement("div");
+ 								var divNode2 = document.createElement("div");
+ 								
+ 								divNode1.innerHTML = obj.name;
+ 								divNode2.innerHTML = obj.content;
+ 								divNode2.id = "content";
+ 								
+ 								liNode.appendChild(divNode1);
+ 								liNode.appendChild(divNode2);
+ 								
+ 								oList.appendChild(liNode);
+ 								
+ 								
+ 								
+ 							}
+ 						}
+ 						
+ 						
+ 						
+ 					}
+ 					
+ 					
+ 				}
+ 				
+ 				
+ 				
+ 				
+ 				
+ 			}
+		</script>
+		 	
+	</head>
+	<body>
+		<ul id="list">
+			<!--<li>
+				<div id="name">申方间</div>
+				<div id="content">观众朋友们，球迷朋友们！大家晚上好，欢迎收看风云足球频道，现在我们为您带来的是一场宇宙足球甲级联赛的直播，是由拜仁慕尼黑迎战巴塞罗那的比赛！ </div>
+			</li>-->
+		</ul>
+		<div id="next">加载下一条数据</div>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 20px;
+				top: 50px;
+			}
+
+		</style>
+		
+		<script src="move.js"></script>
+		<script>
+			
+			onload = function(){
+				
+				var oInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				
+				oInput.onclick = function(){
+					
+					startMove(oBox,"left",400,function(){
+						startMove(oBox,"top",400,function(){
+							startMove(oBox,"left",20,function(){
+								startMove(oBox,"top",50);
+							})
+						});
+					});
+					
+					
+				}
+				
+				
+			}
+			
+			//改变宽高
+			function startMove(obj,attr,iTarge,fn){
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+					var current = parseFloat(getStyleAttr(obj,attr));
+					current = Math.round(current);
+					
+					var iSpeed = (iTarge - current) / 8;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+					
+					if(current == iTarge){
+						clearInterval(obj.timer);
+						
+						
+						//回调
+						if(fn){
+							fn();
+						}
+						return;
+					}
+					
+					obj.style[attr] = current + iSpeed + "px";
+					
+				},30);
+	
+			}				
+			
+ 
+			
+		</script>
+ 
+	</head>
+	<body>
+		<input type="button" value="开始运动" />
+		<div id="box"></div>
+	</body>
+</html>

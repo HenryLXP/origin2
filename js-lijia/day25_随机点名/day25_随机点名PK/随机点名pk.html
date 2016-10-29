@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			body,html {
+				background: pink;
+			}
+			
+			#box {
+				width: 300px;
+				height: 60px;
+				margin: 10px auto;
+			}
+			
+			#person1, #person2 {
+				width: 100px;
+				height: 60px;
+				display: inline-block;
+				background: yellow;
+				text-align: center;
+				line-height: 60px;
+			}
+			
+			#vs {
+				width: 60px;
+				height: 60px;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			#startPK {
+				width: 100px;
+				height: 40px;
+				background: red;
+				border: 1px solid black;
+				border-radius: 5px;
+				text-align: center;
+				line-height: 40px;
+				margin: 50px auto;
+				cursor: pointer;
+			}
+			
+			#list {
+				width: 600px;
+				margin: 0 auto;
+				list-style: none;
+			}
+			
+			#list li {
+				margin-bottom: 10px;
+			}
+			
+		</style>
+		
+		<script src="Player.js"></script>
+		<script src="Judge.js"></script>
+		<script>
+ 			//人的名字列表
+			var nameList = ["孙玉鹏","王略略","王杰","陈杰琼","李雪","朱剑",
+"戴超群","许钦瑞","和慧","孟睿","蔡智隆","李晨晨","祁艺","王亚琪",
+"王志强","张尔翼","张静","周月阳","李梦尧","阎树兵","窦博林","袁诗函","靳宇攀","李宇超","姚奇","程涛",
+"侯衍超","徐竹","江传胜","赵宇","胡瀚文","林垚","温颖颖","苏月","徐江丽","李季","刘艳","任小焕","耿凯旋",
+"冯珍","王晓慧","张先帅","谢凯","曹文凤","王宏伟"];	
+
+			onload = function(){
+				
+				var oStartPK = document.getElementById("startPK");
+				var oPerson1 = document.getElementById("person1");
+				var oPerson2 = document.getElementById("person2");
+				
+				oStartPK.onclick = function(){
+					//随机选择对手，并实例化对象
+					var name1 = nameList[parseInt(Math.random()*nameList.length)];
+					oPerson1.innerHTML = name1;
+					var player1 = new Player(name1,100);
+					
+					var name2 = nameList[parseInt(Math.random()*nameList.length)];
+					oPerson2.innerHTML = name2;
+					var player2 = new Player(name2,100);	
+					
+					//设置各自对手
+					player1.enemy = player2;
+					player2.enemy = player1;
+					
+					judge.attacker = player1;  //设置初始攻击者
+					judge.init().start();      //开始pk游戏
+					
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+			}
+
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<div id="person1">键盘侠</div>
+			<div id="vs">VS</div>
+			<div id="person2">小龙侠</div>
+		</div>
+		<div id="startPK">开始PK</div>
+		<ul id="list">
+			
+		</ul>
+	</body>
+</html>

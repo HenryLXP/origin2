@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//面向对象，面向过程  
+			//面向过程：偏重过程， c语言
+			//过程：事情的经过（先做什么后做什么）
+			//生活中的过程：吃方便面
+			//面向过程：编程的思想。
+			
+			//面向对象；偏向对象， ，java ,c# ,js
+			//对象： 现实生活中存在的个体
+			//面向对象：编程的思想。
+			
+			//面向对象三大特性：
+			//1.封装.把属性和方法封装不提供给其他的对象使用,
+			//2.继承：一个对象（父类）把属性和方法复制一份给新的对对象，新的对象（子类）另外又有自己的属性和方法；
+			//3.多态：字面意思“多种状态” ，接口的实现的多种不同方式，基于继承，在继承时，父类可以指向多个子类，父类在调用一个函数时，让不同的子类实现不同的效果。
+			
+			//对象创建的几种方式
+			//对象是由，属性和方法组成的
+			//new Object
+//			var person = new Object();  //创建一个对象
+//			person.name = "张三";        //设置属性
+//			person.age = 22;
+//			person.show = function(){   //设置方法
+//				//this 指向的是person对象
+//				console.log("姓名："+this.name+",年龄："+this.age);
+//			}
+//			
+//			person.show();
+
+			//字面量方式
+//			var person = {
+//				name : "李四",
+//				age : 33,
+//				show : function(){
+//					console.log("姓名："+this.name+",年龄："+this.age);
+//				}
+//			}
+//			//增加属性和方法
+//			person.sex = "男";
+//			person.run = function(){
+//				console.log("正在跑.......");
+//			}
+//			
+//			person.run();
+
+//			var person = {
+//				name : "张三",
+//				age : 13,
+//				show : function(){
+//					console.log("姓名："+this.name+",年龄："+this.age);
+//				}
+//			}
+//			var person = {
+//				name : "李四",
+//				age : 23,
+//				show : function(){
+//					console.log("姓名："+this.name+",年龄："+this.age);
+//				}
+//			}
+//			var person = {
+//				name : "王五",
+//				age : 33,
+//				show : function(){
+//					console.log("姓名："+this.name+",年龄："+this.age);
+//				}
+//			}			
+
+			//工厂模式(设计模式)
+			//生产同类型的对象
+			
+//			function createObject(name,age){
+//				
+//				var obj = new Object();
+//				obj.name = name;
+//				obj.age = age;
+//				
+//				obj.show = function(){
+//					console.log(this.name);
+//				}
+//				
+//				return obj;
+//			}
+//			
+//			var person1 = createObject("张三","11");
+//			var person2 = createObject("李四","22");
+//			var person3 = createObject("王五","33");
+//			
+//			console.log(person1.name);
+//			console.log(person2.name);
+//			console.log(person3.name);
+//			
+//			console.log(typeof person1);
+//			console.log(person1 instanceof Object);
+
+			//构造函数
+			function Person(name,age){
+				//this指的是通过new关键调用person创建的对象
+				this.name = name;
+				this.age = age;
+				this.show = function(){
+					console.log(this.name);
+				}
+				
+			}
+			
+			//普通函数方式
+			var a = Person("张三",22);
+			console.log(a);
+			//new关键字的方式创建对象
+			var person1 = new Person("张三",22);
+			var person2 = new Person("李四",33);
+			
+			var person3 = person2;   //引用类型，指向的是同一个对象的地址
+			
+			console.log(person2 == person3);
+ 
+			console.log(person1.name);
+			console.log(typeof person2);
+			
+			console.log(person1 instanceof Person);
+			
+			//js没有class这个概念, 可以把构造函数看成一个类
+			//上面person是一个类，person1是一个对象
+			//类：是对象的抽象
+			//对象：是类的实现
+			//人：一个类
+			//张三，李四，王五:是对象
+			//电脑：类
+			//你桌子上的电脑，：看成一个对象
+			
+			//1.通过new关键字调用构造函数，在其内部创建一个对象
+			//2.this指向这个创建的对象
+			//3.代码执行完成之后再返回这个对象。
+			
+			//构造函数的规范：
+			//1.函数名第一个字母尽量大写
+			//2.函数调用是一定要使用new关键字
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

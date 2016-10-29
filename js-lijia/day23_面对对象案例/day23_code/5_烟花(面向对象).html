@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			body,html {
+				width: 100%;
+				height: 100%;
+				background: black;
+				overflow:  hidden;
+			}
+			
+			.fire {
+				width: 3px;
+				height: 30px;
+				position: absolute;
+			}
+			
+			.spark {
+				width: 3px;
+				height: 3px;
+				position: absolute;
+			}
+			
+		</style>
+		
+		<script src="move.js"></script>
+		<script>
+			
+			
+			//Fire烟花类
+			//targetPoint {left:0,top:0}
+			//属性 ele
+			//方法 ：1.初始化方法 init ,,2.发射 launch 3.爆炸boom
+			function Fire(targetPoint){
+				
+				this.ele = document.createElement("div");
+				//初始化
+				this.init = function(){
+					this.ele.className = "fire";
+					this.ele.style.background = randomColor();
+					//位置
+					this.ele.style.left = targetPoint.left + "px";
+					this.ele.style.top = document.documentElement.clientHeight - 30 + "px";
+					//加入到我页面中
+					document.body.appendChild(this.ele);	
+					return this;					
+				}
+				//烟花发射
+				this.launch = function(){
+					var self = this;
+						startMove(this.ele,{top:targetPoint.top,height:3},function(){
+							self.boom();
+						});					
+				}
+				
+				//烟花爆炸
+				this.boom = function(){
+							//移除烟花
+							document.body.removeChild(this.ele);
+							//烟花爆炸后产生的星火
+							var count = parseInt(Math.random()*30) + 30;
+							for(var i=0; i<count; i++){
+								//创建爆炸后的星火，
+								var spark = new Spark(targetPoint);
+								spark.init().fall();   
+							}				
+
+				}
+				
+				//星火类
+				//属性 ele
+				//方法 1.初始化 init  2.抛物线运动  fall
+				function Spark(startPoint){
+					
+					this.ele = document.createElement("div");
+					
+					this.init = function(){
+						this.ele.className = "spark";
+						this.ele.style.background = randomColor();
+						//位置
+						this.ele.style.left = startPoint.left + "px";
+						this.ele.style.top = startPoint.top + "px";
+						//加入到页面
+						document.body.appendChild(this.ele);	
+						
+						return this;
+					}
+					
+					//星火爆炸
+					this.fall = function(){
+						
+						var self = this;
+						
+						//产生抛物线运动的，横向，纵向速度
+						var xSpeed = parseInt(Math.random()*20) * (Math.random()>0.5 ? 1 : -1);
+						var ySpeed = parseInt(Math.random()*20) * (Math.random()>0.5 ? 1 : -1);
+						//产生抛物线运动
+						var timer = setInterval(function(){
+	
+							var x = self.ele.offsetLeft + xSpeed;
+							var y = self.ele.offsetTop + ySpeed;
+							//判断星火的位置是否超出了浏览器的区域，如果超出，就清除星火，关闭运动
+							if(x < 0 || x > document.documentElement.clientWidth || y > document.documentElement.clientHeight){
+								
+								document.body.removeChild(self.ele);
+								clearInterval(timer);
+								
+							}
+	 
+							ySpeed++;
+							
+							//运动
+							self.ele.style.left = x + "px";
+							self.ele.style.top = y + "px";
+			
+						},30);
+ 
+						
+					}
+					
+				}
+				
+  
+				
+			}
+			
+			
+			
+			
+			function randomColor(){	
+				return "rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+")";
+			}	
+			
+			//在页面上点击
+			document.onclick = function(evt){
+				var oEvent = evt || event;
+ 				
+				//创建烟花并发射
+ 				var fire = new Fire({left:oEvent.clientX,top:oEvent.clientY});
+ 				fire.init().launch();
+			}
+			
+			
+		</script>
+		
+		
+	</head>
+	<body>
+	</body>
+</html>

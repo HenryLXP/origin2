@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+ 
+		
+		<script>
+			//运动 ：就是动画 ，原理：就是通过定时器控制，元素的属性
+			//setInterval(): 开启定时器,动画启动
+			//clearInterval(): 关闭定时器,让动画停止
+			//元素位置，left/top
+			//元素宽高, width/height
+			//透明度：  opacity:1  filter: alpha(opactiy:100)
+			
+			//匀速运动：v = s / t; 单位时间内运动的距离
+			
+			onload = function(){
+				var aInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				
+				//按钮点击事件
+				aInput.onclick = function(){
+					//开启定时器
+					var timer = setInterval(function(){
+						//1.获初始位置
+						var current = parseInt(oBox.style.left);
+						console.log(current);
+						//2.当到临界值时，停止动画
+						if(current >= 500){
+							
+							clearInterval(timer);
+							return;
+						}
+						
+						//3.开始动画
+						oBox.style.left = current + 5 + "px";
+	
+					},50);
+
+				}	
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" value="匀速运动" />
+		<div id="box" style="background: red;width:100px;height: 100px;position:absolute;left: 10px;top: 50px;"></div>
+		
+		
+	</body>
+</html>

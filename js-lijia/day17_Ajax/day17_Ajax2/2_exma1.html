@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#toast{
+				color: red;
+			}
+		</style>
+		<script src="AjaxBase.js"></script>
+		<script>
+			onload = function(){
+				var aInput = document.getElementsByTagName("input");
+				var oToast = document.getElementById("toast");
+				
+				aInput[0].onblur = function(){
+					//创建xhr对象
+					var xhr = createXHR();
+					//调用open()方法
+					xhr.open("GET","http://localhost:8080/ajax/checkname?regname="+this.value,true);
+					//调用send()方法发送请求
+					xhr.send(null);
+					
+					//id=15&username=yintao&jj=dd
+					
+					//触发状态改变监听事件
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4 && xhr.status ==200){  //响应成功
+							console.log(xhr.responseText);
+							
+							if(xhr.responseText == "yes"){
+								oToast.innerHTML = "用户名已注册过了";
+							}else{
+								oToast.innerHTML = "用户名可以注册";
+							}
+						}	
+					}
+					
+					
+					
+					
+				}
+				
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" placeholder="用户名" /><span id="toast"></span><br>
+		<input type="text" placeholder="密码"/><br>
+		<input type="button" value="注册">
+		<input type="button" value="重置"/>
+	</body>
+</html>

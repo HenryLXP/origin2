@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 100px;
+				height: 100px;
+				background: red;
+				opacity: 0.5;
+				filter: alpha(opacity:50);
+				
+			}
+		</style>
+		<script src="move.js"></script>
+		<script>
+			
+			onload = function(){
+				
+				var aInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				
+				aInput.onclick = function(){
+					startMove(oBox,"opacity",100);
+					
+				}
+				
+				
+			}
+			
+			//改变透明度
+			
+			function startMove(obj,attr,iTarget){
+				
+				clearInterval(obj.timer);
+				
+				obj.timer = setInterval(function(){
+					
+					//初始透明度
+					var current = parseFloat(getStyleAttr(obj,attr)) * 100;
+					current = Math.round(current);
+					
+					//给一个速度
+					var iSpeed = (iTarget - current) / 8;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+					console.log("current:"+current+"iSpeed:"+iSpeed);
+					//判断是否到达临界值
+					if(current == iTarget){
+						clearInterval(obj.timer); //运动停止
+						return                    //跳出
+					}
+					
+					//改变透明度
+					obj.style.opacity = (current + iSpeed) / 100 ;
+					obj.style.filter = "alpha(opacity:"+ (current + iSpeed) +")";
+					
+	
+					
+				},30)
+
+			}
+ 
+		</script>
+	</head>
+	<body>
+		<input type="button" value="改变透明度"/>
+		<div id="box"></div>
+	</body>
+</html>

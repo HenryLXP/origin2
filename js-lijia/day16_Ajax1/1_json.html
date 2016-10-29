@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//json是一种数据格式
+			//xml也是一种数据格式
+			//用于客户端与服务器端交互
+			
+			//json的
+			//1.json的数据的对象表示法
+//			var person = {
+//				name : "张三",
+//				age : 22
+//			}
+//			
+//			{"name":"张三","age":22}
+//			
+//			//2.json数据的数组表示法
+//			
+//			var arr = [1,"张三",true];
+//			
+//			[1,"张三",true];
+
+		   //3.对象和数组的组合
+		   
+		   //1最外层是数组包含对象
+		   var jsonObj = [{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"},{"name":"王五","age":44,"sex":"男"}];
+		   console.log(jsonObj);  //[object Object],[object Object],[object Object]
+		   console.log(typeof jsonObj);  //object
+		   
+//		   数据库
+//		   		数据表
+//		   			 字段  name  age  sex  .....
+//		   			 	 张三          22   男
+//		   			 	  李四       33    女
+
+		  //2最外层是对象包含数组
+		  var jsonObj = {"data":["张三","李四"],"status":"ok"};
+		  console.log(jsonObj);
+		  
+		  //json字符串
+		  var jsonStr = '[{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"},{"name":"王五","age":44,"sex":"男"}]';
+		  console.log(jsonStr);
+		  console.log(typeof jsonStr);  //string
+		  
+		  //json对象 我们自己方便使用
+		  //json字符串 在和服务器交互时使用
+		  
+		  //json解析  就是把json字符串转换为json对象的过程
+		  //eval();
+		  
+		  var jsonStr = '[{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"},{"name":"王五","age":44,"sex":"男"}]';
+		  var jsonObj = eval(jsonStr);
+		  console.log(jsonObj); //[object Object],[object Object],[object Object] 对象数组
+		  console.log(typeof jsonObj);  //object
+		  console.log(jsonObj[0].name);
+		  
+		  //最外层是对象包含数组时，使用eval方法注意要在里面加上小括号()
+		  var jsonStr = '{"name":"张三","age":[11,12]}';
+		  var jsonObj = eval("("+jsonStr+")");
+		  console.log(jsonObj);
+		  
+		  //JSON.parse()
+		  var jsonStr = '[{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"}]';
+//		  var jsonObj = JSON.parse(jsonStr);
+//		  console.log(typeof jsonObj); //object
+		  
+		  //第二个参数 可以还原出 JS值的时候替换成自己想要的值
+		  var jsonObj = JSON.parse(jsonStr,function(key,value){
+		  	if(key == "name"){
+		  		return "Mr." + value;
+		  	}else{
+		  		return value;
+		  	}
+		  });
+		  
+		  console.log(jsonObj[0].name);
+		  
+		  //json序列化  就是把json对象转换为json字符串的过程
+		  //JSON.stringify()
+		  
+		  var jsonObj = [{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"}];
+		  var jsonStr = JSON.stringify(jsonObj);
+		  console.log(jsonStr);  //"[{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"}]"
+		  console.log(typeof jsonStr);  //string
+		  
+		  //第二个参数，第三个参数
+		  //第二个参数    可以是数组用于过滤，或者是函数
+		  //第三个参数 代表缩进
+		  
+		  var jsonObj = [{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"}];
+		  var jsonStr = JSON.stringify(jsonObj,["name","age"],10);
+		  console.log(jsonStr);
+		  
+		  var jsonObj = [{"name":"张三","age":22,"sex":"男"},{"name":"李四","age":33,"sex":"女"}];
+		  var jsonStr = JSON.stringify(jsonObj,function(key,value){
+		  	if(key == "name"){
+		  		return "Mr." + value;
+		  	}
+		  	else if(key == "age"){
+		  		return value + "岁";
+		  	}
+		  	return value;
+		  },2)
+		  
+		  console.log(jsonStr);
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

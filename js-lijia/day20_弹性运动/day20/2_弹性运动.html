@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#list {
+				width: 400px;
+				height: 30px;
+				margin: 100px auto;
+				position: relative;
+			}
+			#list li {
+				width: 98px;
+				height: 28px;
+				border: 1px solid #ccc;
+				float: left;
+				line-height: 28px;
+				text-align: center;
+				cursor: pointer;
+			}
+			#list .bg {
+				width: 100px;
+				height: 3px;
+				background: red;
+				position: absolute;
+				top: 25px;
+			}
+			
+		</style>
+		
+		<script>
+			onload = function(){
+				var oList = document.getElementById("list");
+				var aLi = oList.getElementsByTagName("li");
+				var oBg = aLi[aLi.length-1];
+				
+				
+				//给移入li的一个鼠标移入事件
+				for(var i=0; i<aLi.length-1; i++){
+					
+					aLi[i].onmouseover = function(){
+						//li相当于ul的偏移量
+						startMove(oBg,this.offsetLeft);
+					}
+					
+				}
+				
+				//弹性运动
+				function startMove(obj,iTarget){
+					//oBox.style.left = iTarget + "px";
+					
+					//给定一个速度的初始值
+					var iSpeed = 0;
+					//清除之前的定时器
+					clearInterval(obj.timer);
+					//开始一个新的定时器，开始运动
+					obj.timer = setInterval(function(){
+						//获取obj初始值
+						var current = obj.offsetLeft;
+						//给定一个速度
+						iSpeed += (iTarget - current) / 5;
+						iSpeed *= 0.7;  //摩擦系数
+						console.log("current:"+current+",iSpeed:"+iSpeed);
+						//判断是否到临界值，当速度很小时已经当前值接近目标值时，
+						if(Math.abs(iSpeed) < 1 && Math.abs(iTarget - current) < 1){
+							
+							obj.style.left = iTarget + "px";  //left = 目标值
+							clearInterval(obj.timer);
+							return;
+						}
+						
+						//运动
+						obj.style.left = current + iSpeed + "px";
+						
+				
+						
+					},30)
+	
+				}
+				
+				
+				
+			}
+	
+		</script>
+		
+	</head>
+	<body>
+		<ul id="list">
+			<li>首页</li>
+			<li>关于我们</li>
+			<li>产品</li>
+			<li>联系我们</li>
+			<li class="bg"></li>
+		</ul>
+	</body>
+</html>

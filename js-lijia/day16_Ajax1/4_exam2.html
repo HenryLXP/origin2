@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="AjaxBase.js"></script>
+		<script>
+			onload = function() {
+
+				var oInput = document.getElementsByTagName("input")[0];
+				var oTable = document.getElementById("tab");
+				var oShowText = document.getElementById("showText");
+
+				//点击按钮
+				oInput.onclick = function() {
+
+					//获取服务器的数据
+					//1, 创建xhr对象
+					var xhr = createXHR();
+					//2, open()
+					xhr.open("GET", "http://localhost:8080/json/news.json", true);
+					//3, send()
+					xhr.send(null);
+					//4, onreadystatechange
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4 && xhr.status == 200) {
+							//在这里就可以使用正确的数据了
+							var dataList = JSON.parse(xhr.responseText);
+							
+							//遍历数组,并添加到table上
+							for (var i=0; i<dataList.length; i++) {
+								var newsObj = dataList[i];
+								
+								//创建tr
+								var trNode = document.createElement("tr");
+								
+								//创建td
+								var tdNode1 = document.createElement("td");
+								var tdNode2 = document.createElement("td");
+								
+								tdNode1.innerHTML = newsObj.title;
+								tdNode2.innerHTML = newsObj.time;
+								
+								trNode.appendChild(tdNode1);
+								trNode.appendChild(tdNode2);
+								
+								oTable.children[0].appendChild(trNode);
+								
+							}
+						}
+					}
+					
+				}
+				/*
+				 * //跨域了
+				 "XMLHttpRequest cannot load http://localhost:8080/json/news.json. 
+				 No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+				 Origin 'http://127.0.0.1:8020' is therefore not allowed access."
+				 */
+			 
+				//让文字往左滚动
+				setInterval(function() {
+					var x = oShowText.offsetLeft - 5;
+					if(x <= 0) {
+						x = 300;
+					}
+					oShowText.style.left = x + "px";
+				}, 30);
+
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" value="点击我加载数据" />
+		<table border="1" id="tab">
+			<tr>
+				<th>title</th>
+				<th>time</th>
+			</tr>
+		</table>
+		<div id="showText" style="position: absolute; top: 300px; left: 300px;">滚动文字</div>
+	</body>
+</html>

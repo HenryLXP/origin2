@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 500px;
+				height: 400px;
+				position: relative;
+				margin: 10px auto;
+			}
+			
+			#list {
+				width: 500px;
+				height: 300px;
+			}
+			#list li {
+				width: 500px;
+				height: 300px;
+				position: absolute;
+				opacity: 0;
+				filter: alpha(opacity=0)
+			}
+			#list img {
+				width: 500px;
+				height: 300px;
+			}
+			
+			#list2 {
+				width: 500px;
+				height: 100px;
+				position: absolute;
+				top: 300px;
+				background: #ccc;
+			}
+			#list2 li {
+				width: 100px;
+				height: 100px;
+				float: left;
+				opacity: 0.3;
+				filter: alpha(opacity=30)
+			}
+			#list2 img {
+				width: 100px;
+				height: 100px;
+			}			
+			
+		</style>
+		
+		<script src="move.js"></script>
+		<script>
+			onload = function(){
+				var oList = document.getElementById("list");
+				var aLi = oList.getElementsByTagName("li");
+				
+				var oList2 = document.getElementById("list2");
+				var aLi2 = oList2.getElementsByTagName("li");
+				
+				var i = 0;  //初始图片下标
+				
+				//初始第一张图片显示
+				for(var j=0; j<aLi.length; j++){
+					
+					if(j == i){
+						aLi[j].style.opacity = 1;
+						aLi[j].style.filter = "alpha(opacity=100)";
+						
+						aLi2[j].style.opacity = 1;
+						aLi2[j].style.filter = "alpha(opacity=100)";
+					}else{
+						aLi[j].style.opacity = 0;
+						aLi[j].style.filter = "alpha(opacity=0)";
+						
+						aLi2[j].style.opacity = 0.3;
+						aLi2[j].style.filter = "alpha(opacity=30)";						
+					}
+ 	
+				}
+				
+				var timer = setInterval(move,3000);
+				
+				
+				//改变透明图进行轮播
+				function move(){
+					
+					i++;
+					if(i > 2){
+						i = 0;
+					}
+					for(var j=0; j<aLi.length; j++){
+						if(i == j){
+							startMove(aLi[j],"opacity",100);
+							startMove(aLi2[j],"opacity",100);
+						}else{
+							startMove(aLi[j],"opacity",0);
+							startMove(aLi2[j],"opacity",30);						
+						}
+					}
+					
+				}
+				
+				//给小图标设置点击事件
+				for(var j=0; j<aLi2.length; j++){
+					aLi2[j].index = j;
+					aLi2[j].onclick = function(){
+						i = this.index - 1;
+						
+ 						move();
+ 						clearInterval(timer);
+ 						timer = setInterval(move,3000);
+					}
+					
+					
+				}
+				
+				
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<li><img src="images/1.jpg" /></li>
+				<li><img src="images/2.jpg" /></li>
+				<li><img src="images/3.jpg" /></li>				
+			</ul>
+			<ul id="list2">
+				<li><img src="images/1.jpg" /></li>
+				<li><img src="images/2.jpg" /></li>
+				<li><img src="images/3.jpg" /></li>				
+			</ul>
+		</div>
+	</body>
+</html>

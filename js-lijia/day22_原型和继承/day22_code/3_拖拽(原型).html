@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 10px;
+				top:10px;
+				background: red;
+			}
+
+		</style>
+		<script>
+			onload = function(){
+				//构造函数实现
+				function Dragbox(){
+					
+				}
+ 
+				Dragbox.prototype.box = document.getElementById("box");
+				//console.log(Dragbox.prototype.box);
+				//开始拖拽startMove
+				Dragbox.prototype.startMove = function(x,y){
+					
+					//console.log(x+","+y);
+					this.divX = x - this.box.offsetLeft;
+					this.divY = y - this.box.offsetTop;
+					
+
+					var self = this;	
+					document.onmousemove = function(evt){
+						
+						var oEvent = evt || event;
+						//console.log(oEvent.clientX+","+oEvent.clientY)
+						self.moveing(oEvent.clientX,oEvent.clientY)
+					}
+					
+					document.onmouseup = function(){
+						self.stopMove();
+					}
+				}
+				//moveing 正在移动
+				Dragbox.prototype.moveing = function(x,y){
+					
+					this.box.style.left = x - this.divX + "px";
+					this.box.style.top = y - this.divY + "px";
+					
+				}
+				//stopMove 停止拖拽
+				Dragbox.prototype.stopMove = function(){
+					document.onmousemove = null;
+					document.onmouseup = null;
+	
+				}
+				
+				
+				var dragbox = new Dragbox();  //获取实例对象dragbox
+				//console.log(dragbox);
+				//开始调用
+				dragbox.box.onmousedown = function(evt){
+					var oEvent = evt || event;
+					//self = dragbox
+					//console.log(this.id); //这里的this指向this.box
+					dragbox.startMove(oEvent.clientX,oEvent.clientY);
+				}					
+ 	
+					 				
+				
+				
+				
+			
+	
+			}
+	
+		</script>		
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>

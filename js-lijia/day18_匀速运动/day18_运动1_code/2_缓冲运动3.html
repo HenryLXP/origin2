@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 200px;
+				top:200px;
+				background: red;
+
+			}
+
+		</style>
+		
+		<script>
+ 
+			onload = function(){
+				var aInput = document.getElementsByTagName("input");
+				var oBox = document.getElementById("box");
+			
+				aInput[0].onclick = function(){
+					//向左					
+					startMove(oBox,"left",20);	
+				}
+ 				aInput[1].onclick = function(){
+					//向右				
+					startMove(oBox,"left",400);	
+				}
+				aInput[2].onclick = function(){
+					//向上				
+					startMove(oBox,"top",20);	
+				}
+				aInput[3].onclick = function(){
+					//向下	
+					startMove(oBox,"top",400);	
+				}				
+
+			}
+			
+			//缓冲运动函数
+			function startMove(obj,attr,iTarget){
+				//先清除之前的定时器
+				clearInterval(obj.timer);
+				
+				//设置定时器，开始运动
+				obj.timer = setInterval(function(){
+					//获取初始位置值
+					var current = parseInt(getStyleAttr(obj,attr));
+					
+					//给定一个速度
+					//缓冲运动：速度越来越小
+					//速度越来越小       （iTarget - current）/8 
+					var iSpeed = (iTarget-current) / 8;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+ 
+					
+					//20-300  = 7 /8 = 0.875555  1
+					//-7/8 = --0.87555   -1
+					
+					//判断是否到达目标位置
+					if(iTarget == current){
+						clearInterval(timer);  //关闭定时器
+						return;					//跳出函数
+					}
+					
+					//运动
+					obj.style[attr] = current + iSpeed + "px";
+					
+					
+				},30);
+ 
+			}
+			
+			
+			
+			
+				//获取元素的属性值
+				//obj  元素对象
+				//attr 要获取的元素属性			
+			function getStyleAttr(obj,attr){
+				if(window.getComputedStyle){  //ie9+  ff 谷歌
+					return getComputedStyle(obj,null)[attr];			
+				}
+				//ie8及以下
+				return obj.currentStyle[attr];
+
+			}
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<input type="button" value="向左" />
+		<input type="button" value="向右" />
+		<input type="button" value="向上" />
+		<input type="button" value="向下" />
+		<div id="box"></div>
+		
+	</body>
+</html>

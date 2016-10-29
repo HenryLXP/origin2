@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 500px;
+				height: 550px;
+				border: 3px solid #ccc;
+				margin: 10px auto;
+				padding: 10px;
+			}
+			
+			#list {
+				width: 480px;
+				height: 430px;
+				border: 1px dashed #ccc;
+				padding: 10px;
+				overflow: auto;
+			}
+			
+			#txt {
+				width: 500px;
+				height: 50px;
+				border: 1px solid orange;
+				margin-top: 10px;
+			}
+			
+			#send {
+				width: 60px;
+				height: 30px;
+				float: right;
+			}
+			
+			#list li span{
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				background: #99f;
+				padding: 0 5px;
+				border-radius: 5px;
+				margin-bottom: 5px;
+			}	
+		</style>
+		
+		<script src="AjaxBase.js"></script>
+		<script>
+			onload = function(){
+				var oList = document.getElementById("list");
+				var oTxt = document.getElementById("txt");
+				var oSend = document.getElementById("send");
+				
+				var myName = prompt("请输入您的姓名","");
+				
+				//写入数据
+				var sendXhr = createXHR();
+				sendXhr.onreadystatechange = function(){
+					if(sendXhr.readyState == 4 && sendXhr.status == 200){
+						//console.log("写入成功："+sendXhr.responseText);
+						
+						getDate();  //写入成功，即时获取数据
+					}
+				}
+				
+				oSend.onclick = function(){
+					var urlStr = "http://10.16.156.5:8080/ajax/chat?type=send&sender="+myName+"&msg="+oTxt.value;
+					sendXhr.open("GET",urlStr,true);
+					sendXhr.send(null);
+					
+					oTxt.value = "";   //发布后清空输入框的内容
+	
+				}
+				
+				
+				
+				//获取数据
+				
+				var getXhr = createXHR();
+				getXhr.onreadystatechange = function(){
+					if(getXhr.readyState == 4 && getXhr.status == 200){
+						//json解析
+						var jsonObj = JSON.parse(getXhr.responseText);
+						console.log(jsonObj[0]);
+						
+						//清空ul下所有li
+						oList.innerHTML = ""
+						
+						for(var i=0; i<jsonObj.length; i++){
+							var obj = jsonObj[i];
+							
+							//创建li元素
+							var liNode = document.createElement("li");
+							//创建span元素
+							var spanNode = document.createElement("span");
+							
+							spanNode.innerHTML = "["+ obj.name +"]:" + obj.content;
+							
+							liNode.appendChild(spanNode);
+							
+							oList.appendChild(liNode);
+														
+							
+						}
+
+					}
+	
+				}		
+				
+				getDate();
+				//封装获取数据
+				function getDate(){
+					var urlStr = "http://10.16.156.5:8080/ajax/chat?type=query";
+					getXhr.open("GET",urlStr,true);
+					getXhr.send(null);	
+				}
+				
+				//定时器500毫秒获取一次数据
+				//setInterval(getDate,500);
+				
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<!--<li>
+					<span>[张三]:你好</span>
+				</li>
+				<li>
+					<span>[李四]:你也好</span>
+				</li>-->
+			</ul>
+			<textarea id="txt"></textarea>
+			<input id="send" type="button" value="发送" />
+		</div>
+	</body>
+</html>

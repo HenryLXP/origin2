@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				height: 2000px;
+			}
+			#box{
+				width:100px;
+				height: 100px;
+				background: blue;
+				color: white;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+		</style>
+		<script src="move.js"></script>
+		<script>
+			
+			onload = onscroll = onresize = function(){
+				
+				var oBox = document.getElementById("box");
+				//offsetHeight  内容的高度，包括边框
+				//clientHeight  内容的高度，不包括边框
+				
+				//获取浏览器内容的高度
+				var clienHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				//获取广告框的高度
+				var boxHeight = oBox.clientHeight;
+				//获取滚动条的距离顶部一个高度
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				
+				//目标距离值
+				var iTarget = (clienHeight - boxHeight) / 2 + scrollTop;
+				console.log("clienHeight:"+clienHeight);
+				console.log("iTarget:"+iTarget);
+				
+				//运动
+				startMove(oBox,{top:parseInt(iTarget)});
+				
+				
+				
+				
+				
+				
+			}
+			
+ 
+		</script>
+	</head>
+	<body>
+		<div id="box">我是广告栏</div>
+	</body>
+</html>

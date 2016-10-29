@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				left: 500px;
+				top:50px;
+				background: red;
+
+			}
+
+		</style>
+		
+		<script>
+			
+//			var person = {
+//				name:"张三",
+//				age:22
+//			}
+			
+//			console.log(person.name);
+//			console.log(person["name"]);
+
+
+			onload = function(){
+				var aInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				
+				aInput.onclick = function(){
+					//调用startMove
+					startMove(oBox,"left",20);
+					
+				}
+				
+				//匀速运动函数
+				//obj 元素对象
+				//attr 元素属性
+				//iTarget 目标位置
+				function startMove(obj,attr,iTarget){
+					//清除之前运动定时器
+					clearInterval(obj.timer);
+					//开启定时器，开始运动
+					obj.timer = setInterval(function(){
+						//获取初始位置
+						var current = parseInt(getStyleAttr(obj,attr));
+						console.log(current);
+						//设置一个速度
+						var iSpeed = current < iTarget ? 5 : -5;
+						console.log(iSpeed);
+						//当到目标位置时，关闭定时器，停止运动
+						if(current == iTarget){
+							clearInterval(obj.timer);  //关闭定时器
+							return;  //跳出函数  不执行下面的代码
+						}
+						
+						//运动	current + iSpeed	
+						obj.style[attr] = current + iSpeed + "px";
+					
+					},30)
+ 	
+				}
+ 	
+			}
+			//current 200+5 205  、205+5 210
+			
+			
+			
+ 
+			//获取元素的属性值
+			//obj  元素对象
+			//attr 要获取的元素属性
+
+			function getStyleAttr(obj,attr){
+				if(window.getComputedStyle){  //ie9+  ff 谷歌
+					return getComputedStyle(obj,null)[attr];			
+				}
+				//ie8及以下
+				return obj.currentStyle[attr];
+
+			}
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<input type="button" value="匀速运动" />
+		<div id="box"></div>
+		<div style="width: 1px;height: 200px;background: black;position:absolute;left:500px;top: 20px;"
+	</body>
+</html>

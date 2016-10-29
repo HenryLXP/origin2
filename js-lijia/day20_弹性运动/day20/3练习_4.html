@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 48px;
+				height: 40px;
+				background: url(images/images2/1.gif);
+				position: absolute;
+				left: 10px;
+				top: 10px;
+			}
+		</style>
+		<script>
+			
+			onload = function(){
+				//猴子
+				var oBox = document.getElementById("box");
+				//设置空数组
+				var arr = [];
+				//拖拽 鼠标按下
+				document.onmousedown = function(evt){
+					var oEvent = evt || event;
+					//获取鼠标安装时的x,y坐标
+					var x = oEvent.clientX;
+					var y = oEvent.clientY;
+					
+					//清空数组
+					arr.length = 0;
+					//获取第一坐标
+					var point = {left:x,top:y};
+					arr.push(point);  //添加到数组
+					
+					//鼠标移动时
+					document.onmousemove = function(evt){
+						var oEvent = evt || event;
+						var x = oEvent.clientX;
+						var y = oEvent.clientY;
+						//追加每一次的坐标到数组
+						arr.push({left:x,top:y});
+						
+					}
+					//鼠标释放时
+					document.onmouseup = function(){
+						
+						document.onmousemove = null;
+						document.onmouseup = null;
+						
+						console.log(arr.length);
+						//设置一个坐标位置
+						oBox.style.left = arr[0].left + "px";
+						oBox.style.top = arr[0].top + "px";
+						//改变背景成跳跃状态这张图片
+						oBox.style.background = "url(images/images2/2.gif)";
+						
+						
+						var i = 0;  //设置猴子的一个下标
+						//开始运动
+						var timer = setInterval(function(){
+							i++;  //移动到下一个坐标
+							if(i >= arr.length){  //当坐标大于或等于数组数组长度时
+								clearInterval(timer);  //停止动画，改变背景成默认状态这张图片
+								oBox.style.background = "url(images/images2/1.gif)";
+							}else{//继续运动
+								oBox.style.left = arr[i].left + "px";   
+								oBox.style.top = arr[i].top + "px";								
+							}
+ 	
+						},30)
+						
+						
+					}
+					
+					
+					
+					
+					
+				}
+				
+				
+				
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>

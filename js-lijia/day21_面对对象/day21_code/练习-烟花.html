@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			body,html{
+				width: 100%;
+				height: 100%;
+				background: black;
+				overflow: hidden;
+			}
+			.fire{
+				width: 3px;
+				height: 30px;
+				background: white;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.spark{
+				width: 3px;
+				height: 3px;
+				position: absolute;
+			}
+		</style>
+		<script src="move.js"></script>
+		<script>
+			//点击页面任何位置发射烟花
+			document.onclick = function(evt){
+				var oEvent = evt || event;
+				var x = oEvent.clientX;
+				var y = oEvent.clientY;
+				//创建烟花并发射
+ 				fireStart(x,y);
+			}
+			//创建烟花并发射
+			function fireStart(x,y){
+				//创建烟花
+				var fireNode = document.createElement("div");
+				fireNode.className = "fire";
+				//位置
+				fireNode.style.left = x + "px";
+				fireNode.style.top = document.documentElement.clientHeight - 30 + "px";
+				//加入到我页面中
+				document.body.appendChild(fireNode);
+				//发射运动
+				startMove(fireNode,{top:y,height:3},function(){
+					//移除烟花
+					document.body.removeChild(fireNode);
+					//烟花爆炸后产生的星火
+					var count = parseInt(Math.random()*30) + 30;
+					for(var i=0; i<count; i++){
+						//创建爆炸后的星火，
+						sparkStart(x,y);
+					}
+				});
+	
+			}
+			
+			//创建爆炸后的星火，
+			function sparkStart(x,y){
+				//创建星火
+				var sparkNode = document.createElement("div");
+				sparkNode.className = "spark";
+				sparkNode.style.background = randomColor();
+				//位置
+				sparkNode.style.left = x + "px";
+				sparkNode.style.top = y + "px";
+				//加入到页面
+				document.body.appendChild(sparkNode);
+				//产生抛物线运动的，横向，纵向速度
+				var xSpeed = parseInt(Math.random()*20) * (Math.random()>0.5 ? 1 : -1);
+				var ySpeed = parseInt(Math.random()*20) * (Math.random()>0.5 ? 1 : -1);
+				//产生抛物线运动
+				var timer = setInterval(function(){
+					ySpeed++;
+					
+					sparkNode.style.left = sparkNode.offsetLeft + xSpeed + "px";
+					sparkNode.style.top = sparkNode.offsetTop + ySpeed + "px";
+					//判断星火的位置是否超出了浏览器的区域，如果超出，就清除星火，关闭运动
+					if(sparkNode.offsetLeft < 0 || sparkNode.offsetLeft > document.documentElement.clientWidth || sparkNode.offsetTop > document.documentElement.clientHeight){
+						
+						document.body.removeChild(sparkNode);
+						clearInterval(timer);
+						
+					}
+	
+				},30);
+				
+				
+				
+				
+			}
+			
+			
+			function randomColor(){
+				
+				return "rgb("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+")";
+			}
+			
+			
+			
+		</script>
+		
+	</head>
+	<body>
+	</body>
+</html>

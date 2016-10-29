@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+//			function fn1(){
+//				function fn2(){
+//					console.log("ss");
+//				}
+//			}
+//			fn2();  //不能直接调用函数内部的函数
+
+			//变量的作用域
+			//全局变量，局部变量
+			
+//			function fn3(){
+//				var n = 1;
+//				console.log(n);
+//			}
+//			fn3();  //局部变量调用之后，就被垃圾回收了 
+			
+//			var a = 1;
+//			function fn4(){
+//				a +=1;
+//				console.log(a);
+//			}
+//			
+//			fn4();   //全局变量一直保存在内存中的
+//			fn4();
+
+//			function fn5(){
+//				var a = 1;
+//				function fn6(){
+//					console.log(a);
+//				}
+//				return fn6;
+//			}
+//			
+//			fn5()();
+
+//			function fn7(){
+//				function fn8(){
+//					var a = 2;
+//				}
+//				console.log2(a);
+//			}
+//			
+//			fn7();
+
+//			function fn1(){
+//				var b = 3;
+//			}
+//			
+//			
+//			console.log(b);
+
+			//闭包，（定义在函数内的函数；能够获取函数变量的函数）为函数体和函数体外架一座桥梁
+			//闭包的作用，1.获取其他函数体的变量，2.可以是函数体的变量一直保存在内存中
+			
+//			function fn1(){
+//				var a = 1;
+//				function fn2(){   //fn2 就是一个闭包
+//					var b = a;
+//					console.log("b:"+b);
+//					console.log("a:"+a);
+//				}
+//				return fn2;
+//			}
+//			
+//			var r = fn1();
+//			r();
+			
+			
+//			function fn3(){
+//				var n = 1;
+//				nAdd = function(){n+=1}
+//				function fn4(){
+//					console.log(n);
+//				}
+//				return fn4;
+//			}
+//			
+//			var r = fn3();
+//			r();   //1
+//			nAdd();  //n=n+1//没有var,它是一个全局的
+//			r();  //2
+			//链式作用域   
+			
+//			//没有var定义的变量都是全局变量
+//			function fn8(){
+//				a = 1;
+//			}
+//			fn8();
+//			console.log(a);
+			onload = function(){
+				var oDiv = document.getElementsByTagName("div");
+				for(var i=0; i<oDiv.length; i++){
+//					oDiv[i].index = i;
+//					oDiv[i].onclick = function(){
+//						console.log(this.index);
+//					}
+					
+					//通过i给index赋值，index外部函数的一个参数（局部变量)
+					
+//					(function(index){
+//						oDiv[index].onclick = function(){
+//							console.log(index);
+//						}
+//					})(i);
+//					
+//					oDiv[i].onclick = function(){
+//						console.log(index);
+//					}
+
+					//这个index一直在内存中了
+//					oDiv[i].onclick = (function(index){
+//						return function(){
+//							console.log(index);
+//						}
+//					})(i);
+
+					
+					
+					
+				}
+
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<div>11111111</div>
+		<div>22222222</div>
+		<div>33333333</div>
+		<div>44444444</div>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width: 50px;
+				height: 50px;
+				background: red;
+				border-radius: 50%;
+				position: absolute;
+				left: 10px;
+				top:200px;	
+			}
+		</style>
+		<script>
+			
+			onload = function(){
+				//获取红色的球
+				var oBox = document.getElementById("box");
+				//横向的速度
+				var xSpeed = 10;
+				//纵向的速度
+				var ySpeed = -20;
+				
+				//纵向运动
+				var timer = setInterval(function(){
+					
+					ySpeed += 2;
+					oBox.style.left = oBox.offsetLeft + xSpeed + "px";
+					oBox.style.top = oBox.offsetTop + ySpeed + "px";
+					
+//					console.log(document.documentElement.clientHeight - oBox.offsetHeight);
+//					console.log(oBox.offsetTop);
+					
+	
+					//判断是否已经到达底部
+					if(oBox.offsetTop >= document.documentElement.clientHeight - oBox.offsetHeight){
+						oBox.style.top = document.documentElement.clientHeight - oBox.offsetHeight + "px";
+						ySpeed *= -0.6;  //让球纵向的停止下来
+					}
+ 
+					
+				},30);
+				
+				//横向运动
+				var timer2 = setInterval(function(){
+					--xSpeed <= 0 ? clearInterval(timer2) : ""	//让球横向的停下来
+				},400)
+				
+				
+				
+				
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>

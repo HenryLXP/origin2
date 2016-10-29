@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+			
+			#box {
+				width: 700px;
+				height: 300px;
+				position: relative;
+				margin: 500px auto;
+				border: 10px solid red;
+				/*overflow: hidden;*/
+			}
+			
+			#list {
+				width: 700px;
+				position: absolute;
+				left: 0;
+				top: 0px;
+			}
+			
+			#list li {
+				width: 600px;
+				height: 300px;
+				padding-left: 100px;
+			}
+			#list img {
+				width: 600px;
+				height: 300px;
+			}
+			
+		</style>
+		<script src="move.js"></script>
+ 		<script>
+ 			onload = function(){
+ 				
+ 				var oList = document.getElementById("list");  //移动的ul
+ 				var aLi = oList.getElementsByTagName("li");  //ul里的图片
+ 				
+ 				oList.innerHTML += oList.innerHTML;   //赋值并追加三张图片
+ 				console.log(aLi.length);
+ 				
+ 				var iHeight = aLi[0].offsetHeight;   //获取每张图片的高度
+ 				
+ 				var i = 0;   //初始图片的下标
+ 				
+ 				//每三秒开始移动
+ 				var timer = setInterval(move,3000); 
+ 				
+ 				//每一次的移动
+ 				function move(){
+ 					i++;   //移动到下一张图片，
+ 					var iTop = -i * iHeight;   //图片移动到的目标位置
+ 					startMove(oList,"top",iTop,next);   //开始移动，
+ 					
+ 				}
+ 				
+ 				//每次运动结束后调用
+ 				function next(){
+ 					if(i >= aLi.length/2){  // 检查是否移动到最后一张
+ 						oList.style.top = 0;  //如果是最后一张 迅速移动到第一张的位置  非运动模式
+ 						i = 0;                //把图片的下标也设置为第一张
+ 					}
+ 				}
+ 				
+ 				
+ 			}
+ 
+ 		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<ul id="list">
+				<li style="background: yellow;"><img src="images/1.jpg" /></li>
+				<li style="background: blue"><img src="images/2.jpg" /></li>
+				<li style="background: pink;"><img src="images/3.jpg" /></li>
+			</ul>
+		</div>
+	</body>
+</html>

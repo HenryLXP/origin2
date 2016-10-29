@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			
+			ul, li {
+				list-style: none;
+			}
+			
+			#list {
+				width: 400px;
+				margin:  0 auto;
+				padding: 5px;
+			}
+			
+			li {
+				
+				border: 1px solid orange;
+				margin-bottom: 10px;
+			}
+			
+			#comment {
+				color: orange;
+			}
+			
+		</style>
+		
+		<script src="AjaxBase.js"></script>
+		<script>
+			onload = function(){
+				var oList = document.getElementById("list");
+				
+				//创建一个xhr对象
+				var xhr = createXHR();
+				xhr.open("GET","http://localhost:8080/ajax/weibo",true);
+				xhr.send(null);
+				
+				//监听状态改变事件
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var dataList = JSON.parse(xhr.responseText);
+						
+						for(var i=0; i<dataList.length; i++){
+							
+							var obj = dataList[i];
+							//创建li
+							var liNode = document.createElement("li");
+							//创建div
+							var divNode1 = document.createElement("div");
+							var divNode2 = document.createElement("div");
+							
+							divNode1.innerHTML = obj.content;
+							divNode2.innerHTML = obj.comtcnt + "人评论" + obj.likecnt + "人赞";
+							divNode2.id = "comment";
+							
+							liNode.appendChild(divNode1);
+							liNode.appendChild(divNode2);
+							
+							oList.appendChild(liNode);
+							
+ 
+						}
+						
+						
+					}
+	
+				}
+			
+				
+				
+			}
+		</script>
+		
+	</head>
+	<body>
+		<ul id="list">
+			<!--<li>
+				<div id="content">小明10年前背井离乡, 家乡人从此再也喝不到井水</div>
+				<div id="comment">50人评论 50人赞</div>
+			</li>-->
+		</ul>
+	</body>
+</html>

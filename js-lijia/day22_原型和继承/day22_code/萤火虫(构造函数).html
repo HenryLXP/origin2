@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			body,html{
+				width:100% ;
+				height: 100%;
+				background: url(images/bg.jpg);
+				background-size: cover;	
+			}
+			img{
+				width: 18px;
+				height: 18px;
+				position: absolute;
+			}
+		</style>
+		<script src="move.js"></script>
+		<script>
+			//产生随机点
+			function randomPoint(){
+				var x = parseInt(Math.random()*document.documentElement.clientWidth);
+				var y = parseInt(Math.random()*document.documentElement.clientHeight);
+				return {left:x,top:y};
+			}
+			
+			//萤火虫类
+			function Fireworm(){
+				
+				this.ele = document.createElement("img");  //创建萤火虫
+				this.ele.src = "images/snow.gif"           //图片地址
+				this.ele.style.left = randomPoint().left + "px";  //出现的位置
+				this.ele.style.top = randomPoint().top + "px";
+				document.body.appendChild(this.ele);
+				
+				//飞 方法
+				this.fly = function(){
+					var self = this;  //保存this
+					startMove(this.ele,randomPoint(),function(){
+						self.fly();
+					});
+				}
+				
+			}
+			
+			onload = function(){
+
+				var count = 10;  //最大的萤火虫数量
+				var timer = setInterval(function(){  //开启定时器
+					if(count--){
+						var fireworm = new Fireworm();  //创建萤火虫实例对象
+						fireworm.fly();					//调用飞的方法
+					}else{
+						clearInterval(timer);           //关闭定时器
+					}
+					
+				},1000);
+
+
+			}
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

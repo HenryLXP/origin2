@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//构造函数 ：可以传参（属性初始化时），包含私有的属性和方法
+			//原型对象：只包含公有的属性和方法
+			
+			function Person(){
+				this.name = "张三"; //公有
+				this.age = 22;
+				this.family = ["爸爸","妈妈","妹妹"];
+				
+				var sex = '男';  //私有属性
+			}
+			Person.prototype.show = function(){
+				console.log(this.sex);
+			}
+			
+			var person1 = new Person();
+			var person2 = new Person();
+			
+			person1.family.push("哥哥");
+			
+			console.log(person1.family);
+			console.log(person2.family);
+			
+			person1.show();
+			person2.show();
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

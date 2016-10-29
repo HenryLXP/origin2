@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="AjaxBase.js"></script>
+		<script>
+			
+			//后台人员 告诉使用get或post方式请求，或者两种方式都可以
+			//创建xhr对象
+			var xhr = createXHR();
+			//调用open方法 post方式，接口这里不要也参数
+			xhr.open("POST","http://localhost:8080/ajax/checkname",true);
+			//设置请求头部，
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			//调用send方法写参数
+			xhr.send("regname=zhangsan");
+			//监听状态改变事件
+			xhr.onreadystatechange = function(){
+				
+				if(xhr.readyState == 4 && xhr.status == 200){ //请求成功
+					
+					console.log(xhr.responseText);
+				}
+			}
+			
+			
+			
+		</script>
+		
+	</head>
+	<body>
+		<form action="http://www.baidu.com">
+			<input type="text" value="zhangsan"  id="userid"/>
+			<input type="text" value="123456" id="pwd"/>
+		</form>
+	</body>
+</html>

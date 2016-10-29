@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="AjaxBase.js"></script>
+		<script>
+			onload = function(){
+				var oInput = document.getElementsByTagName("input")[0];
+				var oTable = document.getElementById("tab");
+				var oBox = document.getElementById("box");
+				
+				oInput.onclick = function(){
+					
+					var xhr = CreateXHR();
+					xhr.open("GET","person.json",true);
+					xhr.send(null);
+					
+					xhr.onreadystatechange = function(){
+						
+						if(xhr.readyState == 4){
+							if(xhr.status == 200){
+								
+								//转换字符串类型的json数据为json对象（数组）
+								var jsonObj = JSON.parse(xhr.responseText);
+								console.log(jsonObj.length);
+								
+								for(var i=0; i<jsonObj.length; i++){
+									
+									var personObj = jsonObj[i];
+									
+									var tr = document.createElement("tr");
+									
+									var td1 = document.createElement("td");
+									var td2 = document.createElement("td");
+									var td3 = document.createElement("td");
+									var td4 = document.createElement("td");
+									var td5 = document.createElement("td");
+									var td6 = document.createElement("td");
+									
+									td1.innerHTML = personObj.name;
+									td2.innerHTML = personObj.age;
+									td3.innerHTML = personObj.sex;
+									td4.innerHTML = personObj.phone;
+									td5.innerHTML = personObj.address;
+									td6.innerHTML = personObj.qq;
+									
+									tr.appendChild(td1);
+									tr.appendChild(td2);
+									tr.appendChild(td3);
+									tr.appendChild(td4);
+									tr.appendChild(td5);
+									tr.appendChild(td6);
+									
+									oTable.appendChild(tr);
+									
+									
+								}
+	
+							}
+						}
+	
+					}
+					
+					
+				}
+				
+				setInterval(function(){
+					var x = oBox.offsetLeft - 5;
+					if(x <= 0){
+						x = 300;
+					}
+					oBox.style.left = x + "px";
+				},50)
+				
+			}
+	
+		</script>
+	</head>
+	<body>
+		<input type="button" value="点击我加载数据" />
+		<table border="1" id="tab">
+			<tr>
+				<th>name</th>
+				<th>age</th>
+				<th>sex</th>
+				<th>phone</th>
+				<th>address</th>
+				<th>qq</th>
+			</tr>
+		</table>
+		<div id="box" style="position: absolute;left: 300px;top: 300px;">滚动的文字</div>
+	</body>
+</html>

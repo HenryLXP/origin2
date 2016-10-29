@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//对象冒充：借用构造函数
+			//call apply
+			
+			//父类
+			function Person(_name,_age){
+				this.name = _name;
+				this.age = _age;
+			}
+			
+			//子类
+			function Employee(_name,_age,_sex){
+				//借用构造函数 Person
+				//对象冒充：   this冒充的Person
+				//this就是employee
+				//employee.name = _name
+				//employee.age = _age
+
+				
+				//Person.call(this,_name,_age);  
+				Person.apply(this,[_name,_age]); //参数一个数组
+				this.sex = _sex;
+			}
+			
+			//Employee.prototype = new Person();
+			
+			var employee = new Employee("张三",22,"男");
+			
+			console.log(employee.name);
+			console.log(employee.age);
+			console.log(employee.sex);
+			
+			employee.name = "李四";
+			console.log(employee.name);
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

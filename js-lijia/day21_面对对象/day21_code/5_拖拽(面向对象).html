@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			onload = function(){
+//				var oBox = document.getElementById("box");
+
+				//面向对象思想实现
+				var dragObj = {
+					//元素对象属性 box
+					//三个方法： 1.startMove,开始拖拽，2.moveing 正在移动，3.stopMove 停止拖拽
+				}
+				//对象属性box
+				dragObj.box = document.getElementById("box");
+				//开始拖拽startMove
+				dragObj.startMove = function(x,y){
+					
+					//console.log(x+","+y);
+					this.divX = x - this.box.offsetLeft;
+					this.divY = y - this.box.offsetTop;
+					
+					//self this指向的是dragObj
+					var self = this;
+					
+					document.onmousemove = function(evt){
+						
+						var oEvent = evt || event;
+						//console.log(oEvent.clientX+","+oEvent.clientY)
+						self.moveing(oEvent.clientX,oEvent.clientY)
+					}
+					
+					document.onmouseup = function(){
+						self.stopMove();
+					}
+				}
+				//moveing 正在移动
+				dragObj.moveing = function(x,y){
+					
+					this.box.style.left = x - this.divX + "px";
+					this.box.style.top = y - this.divY + "px";
+					
+				}
+				//stopMove 停止拖拽
+				dragObj.stopMove = function(){
+					document.onmousemove = null;
+					document.onmouseup = null;
+	
+				}
+				
+				
+//				for(var x in dragObj){
+//					console.log(dragObj[x]);
+//				}
+				//开始调用
+				dragObj.box.onmousedown = function(evt){
+					var oEvent = evt || event;
+					
+					dragObj.startMove(oEvent.clientX,oEvent.clientY);
+				}
+				
+				
+			}
+ 
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box" style="width: 100px;height: 100px;background: red;position: absolute;left:10px;top:10px"></div>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="AjaxBase.js"></script>
+		<script>
+			
+			var xhr = createXHR();
+			xhr.open("GET","http://localhost:8080/ajax/checkname?regname="+encodeURIComponent("zhangsan"),true);
+			
+			//设置请求头部信息
+			xhr.setRequestHeader("token","yang9273984jdfmkmdsk");
+			xhr.setRequestHeader("userid","lisi");
+	
+			xhr.send(null);
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					
+					console.log(decodeURIComponent(xhr.responseText));  //请求体
+					
+					console.log(xhr.getAllResponseHeaders());  //获取所有请求头部
+					
+					console.log(xhr.getResponseHeader("Content-Type"));//获取单个请求头部
+					
+				}
+				
+			}
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

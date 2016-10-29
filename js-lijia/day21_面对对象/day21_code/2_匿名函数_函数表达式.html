@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//匿名函数 ： 没有函数名的函数
+			//普通函数
+//			function fn1(){
+//				console.log("fn1");
+//			}
+//			//主动调用
+//			fn1();
+//			//匿名函数
+//			function(){
+//				console.log("aaa");
+//			}
+			// fn2执行匿名函数
+//			var fn2 = function(){
+//				console.log("fn2");
+//			}
+//			fn2();
+
+			//fn3里面包含fn4
+//			function fn3(){
+//				function fn4(){
+//					console.log("aaaa");
+//				}
+//				return fn4;
+//			}
+//			
+////			var r = fn3();
+////			r();
+//			fn3()();
+
+			//函数表达式
+			//普通函数：需要主动调用，才会执行
+//			function fn5(name){
+//				console.log(name);
+//			}
+//			fn5("张三");
+
+			//匿名函数：不需要主动调用，自动执行
+//			(function(){
+//				console.log("匿名函数自动调用...");
+//			})();
+//			
+//			var fn6 = function(){
+//				console.log("匿名函数");
+//			}
+//			fn6();
+
+			var aa = (function(){
+				//bb是普通函数
+				return function bb(){
+					console.log("cc");
+				}
+			})();
+			
+			aa();  //相当于调用了bb函数
+			
+			var aaa = (function(){
+				return function bbb(name){
+					console.log(name);
+				}
+			})();
+			
+			aaa("张三");  //相当于调用了bbb函数
+			
+			//匿名函数的自动运行 ，第一个括号优先级，第二个括号是调用，可以传参数
+			
+			var a1 = (function(n){
+				return function(m){
+					console.log(m+n);
+				}
+			})(4);   //4传给n
+			
+			a1(3);  //3传给m   最后=7
+			
+			
+			
+			
+			
+			
+
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				background: red;
+				width: 100px;
+				height: 100px;
+			}			
+		</style>
+		<script src="move.js"></script>
+		<script>
+			
+			onload = function(){
+				var aInput = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				
+				aInput.onclick = function(){
+					
+					//startMove(oBox,"height",400);
+					startMove(oBox,"width",400);
+				}
+ 
+			}
+			
+			//改变宽高
+			function startMove(obj,attr,iTarget){
+				
+				clearInterval(obj.timer);
+				
+				obj.timer = setInterval(function(){
+					
+					var current = parseFloat(getStyleAttr(obj,attr));
+					current = Math.round(current);
+					
+					var iSpeed = (iTarget - current) / 8;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+					
+					if(current == iTarget){
+						clearInterval(obj.timer);
+						return;
+					}
+					
+					obj.style[attr] = current + iSpeed + "px";
+					
+					
+					
+				},30);
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+		</script>
+
+	</head>
+	<body>
+		<input type="button" value="改变宽高" />
+		<div id="box"></div>
+	</body>
+</html>

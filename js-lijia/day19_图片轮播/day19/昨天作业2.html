@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				height: 2000px;
+			}
+			#box{
+				width: 100px;
+				height: 30px;
+				background: red;
+				position: fixed;
+				right: 0;
+				bottom: 0;
+				cursor: pointer;
+				line-height: 30px;
+				text-align: center;
+			}
+		</style>
+		<script>
+			onload = function(){
+				
+				var oBox = document.getElementById("box");
+				
+				var timer = null;
+				
+				oBox.onclick = function(){
+					
+					clearInterval(timer);
+					
+					timer = setInterval(function(){
+						
+						var current = document.documentElement.scrollTop || document.body.scrollTop;
+						
+						var iSpeed = (0 - current) / 8 
+						iSpeed = Math.floor(iSpeed);
+						
+						if(current == 0){
+							clearInterval(timer);
+							return;
+
+						}
+						
+						document.documentElement.scrollTop = document.body.scrollTop = current + iSpeed;
+						
+						
+					},30);
+					
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">回到顶部</div>
+	</body>
+</html>

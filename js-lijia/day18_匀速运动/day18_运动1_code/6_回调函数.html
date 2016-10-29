@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//函数调用带（）回调函数调用也带()
+			function fun1(fn){
+				console.log("调用了fun1")
+				
+				//回调   函数回调
+				fn();
+			}
+			
+			//正常调用
+			fun1(function(){
+				console.log("aaaaaaaaaaa");
+			})
+			
+			
+			
+			//申明函数 ，obj是参数 object类型
+			function fun2(obj){
+				console.log(obj.name + "调用了fun2");
+				
+				//回调
+				obj.run("李四");
+				
+			}
+			
+			//函数调用
+			fun2({
+				name : "张三",
+				age : 22,
+				run : function(name){
+					console.log(name+"调用了我");
+				}
+			});
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

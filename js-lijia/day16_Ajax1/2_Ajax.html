@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="AjaxBase.js"></script>
+		<script>
+			//线程
+			//买电脑 cpu 双核
+			//cpu  1核    1线程
+			//cpu  双核  2线程
+			//cpu  四核  4线程
+			//双核四线程
+			
+			//线程，软件默认  软件的多线程是基于我们硬件的多线程的
+			//子线程（分线程)
+			
+			//同步操作，在主线程上执行
+			//异步操作，在主线程上分离出子线程，在子线程上执行
+			
+			//http 协议
+			//一个特点就是 客户端与服务端进行通信
+			//request  客户端向服务器发出请求
+			//response 服务端响应数据
+			
+ 			//Ajax 局部无刷新技术
+ 			//XMLHttpRequest  Ajax核心   不支持ie6
+ 			
+ 			//var xhr = new XMLHttpRequest();  http请求（客户端向服务端发出请求)  不支持ie6
+ 			
+ 			//var xhr = new ActiveXObject("Microsoft.XMLHTTP");  //支持ie6
+ 			
+ 			
+ 			//同步操作
+// 			var xhr = CreateXHR();   //获取一个http对象
+// 			//open() 准备向服务器提交的内容
+// 			//第一个参数 ，请求类型（get/post)
+// 			//第二个参数， 接口地址（请求的url)
+// 			//第三个参数， 是否是异步（false是同步，true是异步)
+// 			xhr.open("GET","person.json",false);			
+// 			//send()   发送请求
+// 			//如果get请求参数为null,			
+// 			xhr.send(null);
+// 			
+// 			if(xhr.status == 200){  //请求成功并返回数据
+// 				console.log(xhr.responseText);
+// 			}else{
+// 				console.log("错误的http状态码："+xhr.status+",错误的http状态码说明"+xhr.statusText);
+// 			}
+// 			
+// 			console.log(xhr.status);
+// 			console.log(xhr.statusText);
+// 			console.log(xhr.responseXML);
+
+			//异步操作
+			
+			var xhr = CreateXHR(); //创建一个xhr对象
+			//调用open方法， 使用异步操作
+			xhr.open("GET","person.json",true);
+			//调用send()方法，发送异步请求
+			xhr.send(null);
+			
+			//取消异步操作
+			//xhr.abort();
+			
+			//状态改变事件，
+			//内部是一个多线程的，创建一个子线程来处理
+			//readyState 
+			xhr.onreadystatechange = function(){
+				
+				if(xhr.readyState == 4 && xhr.status == 200){
+					console.log(xhr.readyState);
+					console.log(xhr.responseText);
+				}
+	
+			}
+			
+			console.log("我是在主线程调用的");
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
