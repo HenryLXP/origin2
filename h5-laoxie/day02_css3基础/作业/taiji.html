@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.taiji {
+				width:0;
+				height:400px;
+				position:relative;
+				border-left:200px solid red;
+				border-right:200px solid gainsboro;
+				box-shadow:0 0 0 6px red;
+				border-radius:400px;
+			}
+			/*.taiji:before,
+			/*产生中号圆*/
+			.taiji:after {
+				width:200px;
+				height:200px;
+				position:absolute;
+				content:"";
+				display:block;
+				top:0px;
+				left:-100px;
+				z-index:1;
+				background-color:gainsboro;
+				border-radius:50%;
+				/*产生红色那个中号圆box-shadow：x,y,外边阴影,颜色*/
+				box-shadow:0 200px 0 red;
+			}
+			/*产生最小的那个圆*/
+			.taiji:before{
+					width:60px;
+					height:60px;
+					top:70px;
+					left:-30px;
+					z-index:2;
+					background-color:red;
+					border-radius:50%;
+					/*产生白色那个圆box-shadow：x,y,外边阴影,颜色*/
+					box-shadow:0px 200px 0px white;
+			}
+				
+		</style>
+	</head>
+	<body>
+		
+			<div class="taiji">
+				
+			</div>
+		
+	</body>
+</html>

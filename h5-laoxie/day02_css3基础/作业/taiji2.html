@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 0px;
+				height: 200px;
+				border-radius: 50%;
+				border-left:100px solid red;
+				border-right:100px solid white;			
+				box-shadow:0px 0px 0px 3px red;	
+				position:relative;
+			}	
+			div:before,		
+			div:after{
+				content:"";
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				left: -45px;
+				top: 0px;				
+				background: red;
+				z-index: 1;
+				border-radius: 50%;
+				box-shadow:0px 100px 0px 0px white;	
+			}
+			div:before{
+				z-index: 2;
+				width: 30px;
+				height: 30px;
+				background:white;
+				left: -10px;
+				top: 30px;
+				border-radius: 50%;
+				box-shadow:0px 100px 0px 0px red;	
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+</html>

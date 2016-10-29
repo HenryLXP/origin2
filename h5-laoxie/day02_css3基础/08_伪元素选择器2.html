@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素选择器</title>
+    <style>
+    	.box{position:relative;width:300px;height:100px;border:1px solid #f00;border-radius:10px;}
+    	.box::after{
+    		content:'';
+    		/*display:inline-block;*/
+    		/*设置距离底部为-60px*/
+    		position:absolute;bottom:-60px;left:50%;
+    		/*创建一个正方形,bmw,只给上面边框设置颜色为红色,呈现一个背景为红色的三角形*/
+    		width:0;height:0;border:30px solid transparent;border-top-color:#f00;
+    	}
+        .box::before{
+            content:'';
+            /*display:inline-block;*/
+           /*设置距离为59px*/
+            position:absolute;bottom:-59px;left:50%;z-index:10;
+            /*创建一个正方形,bmw,只给上面边框设置颜色白色,呈现一个背景为白色的三角形*/
+           /*通过调节距离底部的位置,使得之前插入的白色三角形通过z-index呈现在红色三角形上方*/
+            width:0;height:0;border:30px solid transparent;border-top-color:#fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+
+</html>

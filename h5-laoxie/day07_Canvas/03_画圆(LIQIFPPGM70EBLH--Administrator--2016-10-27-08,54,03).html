@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>03_画圆</title>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',function(){
+			// 1)获取canvas节点
+			var canvas = document.querySelector('canvas');
+			canvas.width = 342;
+			canvas.height = 315;
+
+			// 2)获取画布对象（上下文）
+			var ctx = canvas.getContext('2d');
+
+
+//			黄色弧
+			ctx.moveTo(canvas.width/2,canvas.height/2);
+			ctx.arc(canvas.width/2,canvas.height/2,80,30*Math.PI/180,140*Math.PI/180,false);
+			ctx.closePath();			
+			ctx.fillStyle='yellow';
+			ctx.strokeStyle="yellow"
+			ctx.fill();
+			ctx.stroke();
+//			红色弧
+			ctx.beginPath();
+			ctx.moveTo(canvas.width/2,canvas.height/2);
+			ctx.arc(canvas.width/2,canvas.height/2,80,140*Math.PI/180,270*Math.PI/180,false);
+			ctx.closePath();			
+			ctx.fillStyle='red';
+			ctx.strokeStyle="red"
+			ctx.fill();
+			ctx.stroke();
+//			橙色弧
+			ctx.beginPath();
+			ctx.moveTo(canvas.width/2,canvas.height/2);
+			ctx.arc(canvas.width/2,canvas.height/2,80,270*Math.PI/180,290*Math.PI/180,false);
+			ctx.closePath();			
+			ctx.fillStyle='coral';
+			ctx.strokeStyle="coral"
+			ctx.fill();
+			ctx.stroke();
+//			浅绿
+			ctx.beginPath();
+			ctx.moveTo(canvas.width/2,canvas.height/2);
+			ctx.arc(canvas.width/2,canvas.height/2,80,290*Math.PI/180,320*Math.PI/180,false);
+			ctx.closePath();			
+			ctx.fillStyle='greenyellow';
+			ctx.strokeStyle="greenyellow"
+			ctx.fill();
+			ctx.stroke();
+//			蓝色弧
+			ctx.beginPath();
+			ctx.moveTo(canvas.width/2,canvas.height/2);
+			ctx.arc(canvas.width/2,canvas.height/2,80,320*Math.PI/180,30*Math.PI/180,false);
+			ctx.closePath();			
+			ctx.fillStyle='blue';
+			ctx.strokeStyle="blue"
+			ctx.fill();
+			ctx.stroke();
+		})
+	</script>
+</head>
+<body>
+	<canvas>你的浏览器不支持canvas标签，请升级你的浏览你</canvas>
+</body>
+</html>

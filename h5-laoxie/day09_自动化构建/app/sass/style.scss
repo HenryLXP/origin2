@@ -1,0 +1,7 @@
+@import 'variables';
+@import 'reset';
+@import 'common';
+@import 'project';
+
+//1）在sass文件中，以下划线“_”开头的文件不会被编译
+//2）@import引入sass文件时，可省略下划线和后缀名

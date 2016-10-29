@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>			
+			#box2{
+				width: 240px;
+				height: 100px;
+				border: 1px solid red;
+				border-radius: 20px;
+				color: red;
+				text-align: center;
+				line-height: 100px;		
+				position: relative;	
+				left: -70px;
+				top: -185px;	
+				opacity: 0.2;
+				/*ease-in-out由慢到快再到慢。第一个参数为开始运动到目的地的时间，后面哪个参数为设置几秒开始运动*/
+			   	transition: top 3s ease-in-out 0s,opacity 3s ease-in-out 0s; 
+			}
+			#box2::before{
+				position: absolute;
+				content: "";
+				width: 20px;
+				height: 20px;
+				border: 1px solid red;
+				border-left: none;
+				border-top: none;
+				background:white;
+				z-index: 1;
+				-moz-transform:    rotate(45deg);
+			   	-webkit-transform: rotate(45deg);
+			  	-ms-transform:     rotate(45deg);
+			  	-o-transform:      rotate(45deg);	
+			  	left: 80px;
+			  	top: 90px;				  			   	
+			}
+			#box1{
+				width: 40px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+				border: 1px solid red;
+				position: absolute;	
+				left: 200px;
+				top: 200px;											
+			}
+			#box1:hover #box2{						
+				opacity: 1;		
+				top: -165px;		
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!--hover——实现效果的目标，必须在hover对象的里面、不然不起作用-->
+		<div id="box1">
+			<a href="#">百度</a>
+			<div id="box2">不得不说，这是一家广告公司</div>
+		</div>
+	</body>
+</html>

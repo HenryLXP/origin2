@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*ul>li[data-index]{color: red;}
+			ul>li:empty{background: green;}
+			ul>li:not(:last-child){font-size: 30px;}*/
+			li:not(:second-child){color: yellow;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<p>我是p1</p>
+			<p>我是p2</p>
+			<p>我是p3</p>
+			<i>我是i1</i>
+			<i>我是i2</i>
+			<ul>
+				<li data-index="10">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li data-index="10">4</li>
+				<li>5</li>
+				<li>6</li>
+				<li data-index="10">7</li>
+			</ul>
+			<ul>
+				<li></li>
+				<li></li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li data-index="100">6</li>
+				<li>7</li>
+			</ul>
+		</div>
+	</body>
+</html>
